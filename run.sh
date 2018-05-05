@@ -37,7 +37,7 @@ if test -e "config.sh"; then
     . "config.sh"
 
 else
-
+    first=true
     echo
     echo "This appears to be the first time you're running this script."
     echo "Before we start, we need a few details"
@@ -152,8 +152,7 @@ for course in $(cat "$temp2"); do
             #escape all quotations, slashes and control characters
             message="$(printf "%q" $"$message
 
-
-$msgurl" | sed 's/\\ //g' | sed 's/[^\\]"/\\"/g' | sed "s/\\\'/'/g" | sed "s/$'//g")"
+            $msgurl" | sed 's/\\ //g' | sed 's/\([^\\]\)"/\1\\"/g' | sed "s/\\\'/'/g" | sed "s/$'//g")"
 
             size=${#message}
 
@@ -162,6 +161,8 @@ $msgurl" | sed 's/\\ //g' | sed 's/[^\\]"/\\"/g' | sed "s/\\\'/'/g" | sed "s/$'/
 
             echo -n '"}' >> .to_send 
          
+            echo "New message found!"
+
             cat .to_send
 
             # don't send if running for the first time
