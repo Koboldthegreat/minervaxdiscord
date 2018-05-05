@@ -1,0 +1,2 @@
+# minervaxdiscord
+UGent Minerva - Discordbot
