@@ -1,2 +1,2 @@
-# minervaxdiscord
+# minerva ♥ discord
 UGent Minerva - Discordbot
