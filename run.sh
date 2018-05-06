@@ -72,13 +72,13 @@ else
 
 fi
 
-# Cookie init and authentication salt retrieval
 touch "$temp1"
 touch "$temp2"
 
 # keeps track of handled messages
 touch "$msgf"
 
+# Cookie init and authentication salt retrieval
 echo -n "Initializing cookies and retrieving salt..."
 curl -c "$cout" "${url}/secure/index.php?external=true" --output "$temp1" 2> /dev/null
 swap_cookies
@@ -109,6 +109,7 @@ cat "$temp1" | sed '/course_home.php?cidReq=/!d' | # filter lines with a course 
     sed 's/.*course_home\.php?cidReq=\([^"]*\)">\([^<]*\)<.*/\2,\1/' | # separate course name and cidReq with a comma.
     sed 's/ /_/g' | # avod trouble by substituting spaces by underscores.
 cat - > "$temp2"
+echo "done"
 
 # iterate over every course and get new messages
 echo -n "Syncing up"
