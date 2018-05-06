@@ -7,7 +7,6 @@ temp2="/tmp/temp2"
 
 # msg cache
 msgf=".msg"
-temptree="/tmp/temptree"
 url="https://minerva.ugent.be"
 
 # apparently we need 2 cookie files, an in and an out cookie
@@ -149,9 +148,10 @@ for course in $(cat "$temp2"); do
 
             msgurl="${url}/main/announcements/announcements.php?cidReq=${cidReq}"
             
-            #escape all quotations, slashes and control characters
+            # escape all quotations, slashes and control characters
+            # json is a bitch
             message="$(printf "%q" $"$message
-
+            
             $msgurl" | sed 's/\\ //g' | sed 's/\([^\\]\)"/\1\\"/g' | sed "s/\\\'/'/g" | sed "s/$'//g")"
 
             size=${#message}
@@ -161,6 +161,7 @@ for course in $(cat "$temp2"); do
 
             echo -n '"}' >> .to_send 
          
+            # hurray!
             echo "New message found!"
 
             cat .to_send
