@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# run in pwd
+cd $(dirname $0)
+
 # heavily based on NoctuaNivalis' minerva-syncer code
 
 temp1="/tmp/temp1"
