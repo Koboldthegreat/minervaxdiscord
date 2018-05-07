@@ -3,6 +3,9 @@
 # run in pwd
 cd $(dirname $0)
 
+# spit out date for handy logging
+date
+
 # heavily based on NoctuaNivalis' minerva-syncer code
 
 temp1="/tmp/temp1"
