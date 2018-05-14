@@ -139,7 +139,6 @@ for course in $(cat "$temp2"); do
     for id in $announcements; do 
         if ! grep -q $id "$msgf"; then
             echo .
-            echo "$data" > data
             message="$(printf "%s" "$data" |
                 sed -ne "/<div id=\"announcement_${id}\"/,$ p" |
                 sed -e "s/announcement_${id}//g" | 
@@ -148,8 +147,6 @@ for course in $(cat "$temp2"); do
             echo
             echo "$id" >> "$msgf"
 
-            echo "$message"
-            
             echo -n '{"username":"Minerva", "content": "' > .to_send
             
             if [ "$size" -gt "1000" ] ; then
