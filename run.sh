@@ -139,13 +139,16 @@ for course in $(cat "$temp2"); do
     for id in $announcements; do 
         if ! grep -q $id "$msgf"; then
             echo .
-            message="$(echo -e "$data" |
-                sed "0,/<div id=\"announcement_${id}\"/d" |
-                sed "/announcement_${id}/d" | 
-                sed '/announcement_/,$d' |
-                sed 's/<[^>]*>//g')"
+            echo "$data" > data
+            message="$(printf "%s" "$data" |
+                sed -ne "/<div id=\"announcement_${id}\"/,$ p" |
+                sed -e "s/announcement_${id}//g" | 
+                sed -e '/announcement_[0-9]+/,$d' |
+                sed -e 's/<[^>]*>//g')"$'\n\n'
             echo
             echo "$id" >> "$msgf"
+
+            echo "$message"
             
             echo -n '{"username":"Minerva", "content": "' > .to_send
             
